@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:id="@+id/linearmatch"
+    android:clickable="true"
+    android:background="@color/lb_control_button_color"
+    android:orientation="horizontal"
+    >
+    <!-- ^^^ android:background="?android:attr/selectableItemBackground"-->
+
+    <ImageView
+        android:id="@+id/matchImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/profile"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom|clip_horizontal"
+
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/title"
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/artist"
+                android:textColor="@color/colorWhite"
+                android:textSize="12dp"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artista"
+                />
+
+            <TextView
+                android:id="@+id/preview"
+                android:textColor="@color/colorWhite"
+                android:textSize="12dp"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="preview"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+
+            >
+            <jp.co.recruit_lifestyle.android.widget.PlayPauseButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+
+                android:id="@+id/play"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.compscitutorials.basigarcia.navigationdrawervideotutorial;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class MatchesFragment extends Fragment{
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
+    DBHandler db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +34,7 @@ public class MatchesFragment extends Fragment{
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(getContext(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
-
+        db = new DBHandler(getContext());
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -53,6 +55,15 @@ public class MatchesFragment extends Fragment{
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+                //Log.d("click", parent + " >> " + v + " >> " + groupPosition + " >> " + childPosition + " >> " + id);
+                //Log.d("click2", expandableListTitle.toString() + " >> " + expandableListTitle.get(groupPosition));
+                if(childPosition == 2) {
+                    /*for (Track t : db.getTracks(1)){
+                        Log.d("aa", t.getId());
+                    }*/
+                    db.updateStatus(expandableListTitle.get(groupPosition), 2);
+                }
+
                 return false;
             }
         });

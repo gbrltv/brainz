@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,21 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
+    private HashMap<String, Data> hashData;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        HashMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        DBHandler db = new DBHandler(context);
+        hashData = new HashMap<String, Data>();
+        for (Track t : db.getTracks(1)){
+            Data d = new Data(t.getAlbumImage(), t.getTrackName(), t.getArtistName(), t.getPreviewUrl(), t.getId());
+            hashData.put(t.getId(), d);
+        }
+
+
     }
 
     @Override
@@ -85,7 +95,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(listTitle);
+        listTitleTextView.setText(hashData.get(listTitle).getDescription());
         return convertView;
     }
 

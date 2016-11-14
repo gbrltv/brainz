@@ -49,9 +49,10 @@ public class threadnelas extends AsyncTask<String, Void, JSONObject> {
         con.setRequestMethod("GET");
 
         //add request header
-        con.setRequestProperty("Authorization", "Bearer " + accessToken);
+        con.setRequestProperty("Authorization: ", "Bearer " + accessToken);
 
         int responseCode = con.getResponseCode();
+
        // Log.d("MainActivity","\nSending 'GET' request to URL : " + url);
        // Log.d("MainActivity","Response Code : " + responseCode);
 

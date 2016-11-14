@@ -6,13 +6,11 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -20,19 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.lorentzos.flingswipe.FlingCardListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
 
 
@@ -78,13 +71,18 @@ public class MainFragment extends Fragment {
 
         ltr = db.getTracks(0);
 
-      //  Log.d("db.getTracks(0)", ""+db.getTracks(0).size());
-       // Log.d("db.getTracks(1)", ""+db.getTracks(1).size());
-       // Log.d("db.getTracks(2)", ""+db.getTracks(2).size());
+        Log.d("db.getTracks(0)", ""+db.getTracks(0).size());
+        Log.d("db.getTracks(1)", ""+db.getTracks(1).size());
+        Log.d("db.getTracks(2)", ""+db.getTracks(2).size());
 
-        //db.deleteRows(2);
-        //db.deleteRows(1);
-        //db.deleteRows(0);
+        /*db.deleteRows(2);
+        db.deleteRows(1);
+        db.deleteRows(0);
+
+        Log.d("db.getTracks(0)2", ""+db.getTracks(0).size());
+        Log.d("db.getTracks(1)2", ""+db.getTracks(1).size());
+        Log.d("db.getTracks(2)2", ""+db.getTracks(2).size());*/
+
 
         al = new ArrayList<>();
         for (Track l : ltr){
@@ -114,7 +112,6 @@ public class MainFragment extends Fragment {
                 mediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
                 myAppAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -132,8 +129,16 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                //Log.d("itemsInAdapter", "" + itemsInAdapter);
+                Log.d("itemsInAdapter", "" + itemsInAdapter);
                 callRecommendations(token);
+                //viewHolder.notify();
+                ltr = db.getTracks(0);
+
+                for (Track l : ltr){
+                    al.add(new Data(l.getAlbumImage(),l.getTrackName(),l.getArtistName(), l.getPreviewUrl(),l.getId()));
+                }
+
+                myAppAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -142,6 +147,7 @@ public class MainFragment extends Fragment {
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.background).setAlpha(0);
                 view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0); view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+                //Log.d("myAppAdapter>>",""+myAppAdapter.getCount());
             }
         });
 

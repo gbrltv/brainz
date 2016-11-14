@@ -22,7 +22,7 @@ public class LoadImageFromUrl extends AsyncTask<String,Void,Bitmap> {
 
         try {
             URL url = new URL(params[0]);
-            Log.d("LOADIMAGE", "doInBackground: "+params[0]);
+            // Log.d("LOADIMAGE", "doInBackground: "+params[0]);
             InputStream is = url.openConnection().getInputStream();
             Bitmap bitMap = BitmapFactory.decodeStream(is);
             is.close();

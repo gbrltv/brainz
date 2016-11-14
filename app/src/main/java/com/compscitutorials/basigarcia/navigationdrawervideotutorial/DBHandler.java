@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -88,6 +89,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 //Log.d("escreveparadas","Nome: "+cursor.getString(1));
             } while (cursor.moveToNext());
         }
+        /*for(Track t : trackList){
+            Log.d("Tbefore: ", t.getTrackName());
+        }
+        Collections.shuffle(trackList);
+        for(Track t : trackList){
+            Log.d("Tafter: ", t.getTrackName());
+        }*/
         return trackList;
     }
 

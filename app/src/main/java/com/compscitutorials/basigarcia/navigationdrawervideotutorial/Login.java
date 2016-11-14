@@ -29,7 +29,7 @@ public class Login extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.login, container, false);
 
-        Log.d("Login","ChegouAQui");
+        // Log.d("Login","ChegouAQui");
         return rootView;
     }
 }

@@ -121,15 +121,15 @@ public class MainActivity extends AppCompatActivity
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
-                    Log.d("MainActivity", "DEBUGSONTHETABLE =========>>> " + response.getAccessToken());
+                    // Log.d("MainActivity", "DEBUGSONTHETABLE =========>>> " + response.getAccessToken());
                     String[] ary = new String[]{response.getAccessToken()};
                     try{
-                        //Thread GetUserInfo
-                        //auth_token_string = settings.getString("TOKEN", "");
-                        //Log.d("Main","Token--"+auth_token_string);
-                        //String[] ary = new String[]{};
+                        // Thread GetUserInfo
+                        // auth_token_string = settings.getString("TOKEN", "");
+                        // Log.d("Main","Token--"+auth_token_string);
+                        // String[] ary = new String[]{};
                         User_info = new threadnelas().execute(ary).get();
-                        Log.d("USER INFO","--"+User_info);
+                        // Log.d("USER INFO","--"+User_info);
 
                         //Altera Dados da View
                         View headerView = navigationView.getHeaderView(0);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
                         emailText.setText(User_info.get("email").toString());
                         TextView usernameText = (TextView) headerView.findViewById(R.id.username);
                         usernameText.setText(User_info.get("display_name").toString());
-                        Log.d("SPOTIFY","USER_ID"+User_info.get("id").toString());
+                        // Log.d("SPOTIFY","USER_ID"+User_info.get("id").toString());
 
                         JSONObject profile_image_object = (JSONObject) User_info.getJSONArray("images").get(0);
                         //Log.d("MainActivity","JsonObject"+profile_image_object);

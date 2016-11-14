@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        Log.d("TOKEN","teste");
+        // Log.d("TOKEN","teste");
         // Check if result comes from the correct activity
         if (requestCode == REQUEST_CODE) {
             response = AuthenticationClient.getResponse(resultCode, intent);
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity{
                 case TOKEN:
                     // Handle successful response
                     t = response.getAccessToken();
-                    Log.d("TOKEN","testetoken"+t);
+                    // Log.d("TOKEN","testetoken"+t);
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("TOKEN", t);

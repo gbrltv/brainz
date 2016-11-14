@@ -55,17 +55,18 @@ public class MatchesFragment extends Fragment{
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                //Log.d("click", parent + " >> " + v + " >> " + groupPosition + " >> " + childPosition + " >> " + id);
-                //Log.d("click2", expandableListTitle.toString() + " >> " + expandableListTitle.get(groupPosition));
-                if(childPosition == 2) {
-                    /*for (Track t : db.getTracks(1)){
-                        Log.d("aa", t.getId());
-                    }*/
+                if(childPosition == 0) {            //ADD TO PLAYLIST
+
+                } else if(childPosition == 1) {     //DISCOVER ARTIST
+
+                } else if(childPosition == 2) {     //REMOVE TRACK
                     db.updateStatus(expandableListTitle.get(groupPosition), 2);
+                    //expandableListTitle.remove(groupPosition);
                 }
 
                 return false;
             }
+
         });
 
         return rootView;

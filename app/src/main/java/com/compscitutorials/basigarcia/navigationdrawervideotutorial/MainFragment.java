@@ -40,6 +40,8 @@ public class MainFragment extends Fragment {
     String AudioURL;
     DBHandler db;
 
+    //CAMILO CAMILEWISKI
+
     public MainFragment() {
         // Required empty public constructor
     }

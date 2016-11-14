@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
@@ -137,7 +138,7 @@ public class MainFragment extends Fragment {
                 for (Track l : ltr){
                     al.add(new Data(l.getAlbumImage(),l.getTrackName(),l.getArtistName(), l.getPreviewUrl(),l.getId()));
                 }
-
+                Collections.shuffle(al);
                 myAppAdapter.notifyDataSetChanged();
             }
 

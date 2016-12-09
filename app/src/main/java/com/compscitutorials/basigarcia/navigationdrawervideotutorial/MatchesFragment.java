@@ -10,6 +10,8 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ public class MatchesFragment extends Fragment{
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
     DBHandler db;
+    private int lastExpandedPosition = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,12 +37,18 @@ public class MatchesFragment extends Fragment{
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(getContext(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
+        final String token = getArguments().getString("token");
+        final String user_id = getArguments().getString("user_id");
         db = new DBHandler(getContext());
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
+                if(lastExpandedPosition != -1 && groupPosition != lastExpandedPosition){
+                    expandableListView.collapseGroup(lastExpandedPosition);
+                }
 
+                lastExpandedPosition = groupPosition;
             }
         });
 
@@ -48,7 +57,6 @@ public class MatchesFragment extends Fragment{
             @Override
             public void onGroupCollapse(int groupPosition) {
 
-
             }
         });
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -56,6 +64,12 @@ public class MatchesFragment extends Fragment{
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 if(childPosition == 0) {            //ADD TO PLAYLIST
+                    try{
+                        JSONObject Recommendations = new ThreadAddToPlaylist().execute(user_id, token).get();
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                    //JSONObject track = (JSONObject) Recommendations.getJSONArray("items").get(i);
 
                 } else if(childPosition == 1) {     //DISCOVER ARTIST
 
@@ -71,5 +85,7 @@ public class MatchesFragment extends Fragment{
 
         return rootView;
     }
+
+
 
 }

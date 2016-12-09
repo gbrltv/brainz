@@ -5,14 +5,21 @@ package com.compscitutorials.basigarcia.navigationdrawervideotutorial;
  */
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -20,6 +27,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
     private HashMap<String, Data> hashData;
+    Bitmap albumimage;
+    public ImageView img;
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        HashMap<String, List<String>> expandableListDetail) {
@@ -94,8 +103,29 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
+        listTitleTextView.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
         listTitleTextView.setText(hashData.get(listTitle).getDescription());
+
+        TextView listAuthorTextView = (TextView) convertView
+                .findViewById(R.id.listAuthor);
+        listAuthorTextView.setTypeface(Typeface.SANS_SERIF);
+        listAuthorTextView.setText(hashData.get(listTitle).getArtist());
+
+        img = (ImageView) convertView.findViewById(R.id.matchImage);
+        try {
+            albumimage = new LoadImageFromUrl().execute(hashData.get(listTitle).getImagePath()).get();
+            img.setImageBitmap(albumimage);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        final PlayPauseButton playPauseButton =
+                (PlayPauseButton) convertView.findViewById(R.id.play);
+        playPauseButton.setColor(Color.WHITE);
+
         return convertView;
     }
 

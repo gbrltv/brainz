@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Intes Expandable (Tracks) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/matchImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/profile"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
     <TextView
         android:id="@+id/listTitle"
-        android:layout_width="fill_parent"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textColor="@android:color/white"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
+        />
+    <TextView
+        android:id="@+id/listAuthor"
+        android:textColor="@color/colorWhite"
+        android:textSize="12dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Artista"
+        />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+
+            >
+            <jp.co.recruit_lifestyle.android.widget.PlayPauseButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+
+                android:id="@+id/play"
+                android:textColor="#ffffff"
+
+                android:layout_marginRight="25dp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

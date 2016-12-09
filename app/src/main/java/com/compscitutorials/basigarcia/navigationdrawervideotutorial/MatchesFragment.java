@@ -64,12 +64,6 @@ public class MatchesFragment extends Fragment{
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 if(childPosition == 0) {            //ADD TO PLAYLIST
-                    try{
-                        JSONObject Recommendations = new ThreadAddToPlaylist().execute(user_id, token).get();
-                    } catch(Exception e) {
-                        e.printStackTrace();
-                    }
-                    //JSONObject track = (JSONObject) Recommendations.getJSONArray("items").get(i);
 
                 } else if(childPosition == 1) {     //DISCOVER ARTIST
 

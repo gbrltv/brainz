@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         } else if (id == R.id.nav_gallery) {
             //Set the fragment initially
-            GalleryFragment fragment = new GalleryFragment();
+            MatchesFragment fragment = new MatchesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             Bundle bundle=new Bundle();
@@ -255,29 +255,7 @@ public class MainActivity extends AppCompatActivity
 
         } //else if (id == R.id.nav_slideshow) {
 
-        //} else if (id == R.id.nav_manage) {
-
-    //    }
-        else if (id == R.id.nav_share) {
-            MatchesFragment fragment = new MatchesFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            Bundle bundle=new Bundle();
-
-            //Passar Dados para Fragment...
-            try {
-                bundle.putString("user_id", User_info.get("id").toString());
-                bundle.putString("token", response.getAccessToken());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            fragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-        } else if (id == R.id.nav_send) {
-
-        }
+        //
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

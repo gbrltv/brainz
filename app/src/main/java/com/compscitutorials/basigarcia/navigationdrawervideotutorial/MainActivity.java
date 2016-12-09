@@ -137,15 +137,31 @@ public class MainActivity extends AppCompatActivity
                         emailText.setText(User_info.get("email").toString());
                         TextView usernameText = (TextView) headerView.findViewById(R.id.username);
                         usernameText.setText(User_info.get("display_name").toString());
-                        // Log.d("SPOTIFY","USER_ID"+User_info.get("id").toString());
 
                         JSONObject profile_image_object = (JSONObject) User_info.getJSONArray("images").get(0);
-                        //Log.d("MainActivity","JsonObject"+profile_image_object);
                         profile_url = profile_image_object.getString("url");
-                        //Log.d("MainActivity","PROFILE_URL:"+profile_url);
                         iv = (CircleImageView) findViewById(R.id.profile_image);
                         LoadImageFromURL loadImage = new LoadImageFromURL();
                         loadImage.execute(profile_url);
+
+
+                        MainFragment fragment = new MainFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                                getSupportFragmentManager().beginTransaction();
+                        Bundle bundle=new Bundle();
+                        //Passar Dados para Fragment...
+
+                        try {
+                            bundle.putString("token", response.getAccessToken());
+                            bundle.putString("user_id", User_info.get("id").toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        fragment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.fragment_container, fragment);
+                        fragmentTransaction.commit();
+
                     }catch(Exception e){
                         Log.d("MainActivity","Erro ========> "+e);
                     }

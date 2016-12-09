@@ -128,23 +128,6 @@ public class MainActivity extends AppCompatActivity
                         // auth_token_string = settings.getString("TOKEN", "");
                         // Log.d("Main","Token--"+auth_token_string);
                         // String[] ary = new String[]{};
-                        User_info = new threadnelas().execute(ary).get();
-                        // Log.d("USER INFO","--"+User_info);
-
-                        //Altera Dados da View
-                        View headerView = navigationView.getHeaderView(0);
-                        TextView emailText = (TextView) headerView.findViewById(R.id.email);
-                        emailText.setText(User_info.get("email").toString());
-                        TextView usernameText = (TextView) headerView.findViewById(R.id.username);
-                        usernameText.setText(User_info.get("display_name").toString());
-
-                        JSONObject profile_image_object = (JSONObject) User_info.getJSONArray("images").get(0);
-                        profile_url = profile_image_object.getString("url");
-                        iv = (CircleImageView) findViewById(R.id.profile_image);
-                        LoadImageFromURL loadImage = new LoadImageFromURL();
-                        loadImage.execute(profile_url);
-
-
                         MainFragment fragment = new MainFragment();
                         android.support.v4.app.FragmentTransaction fragmentTransaction =
                                 getSupportFragmentManager().beginTransaction();
@@ -161,6 +144,22 @@ public class MainActivity extends AppCompatActivity
                         fragment.setArguments(bundle);
                         fragmentTransaction.replace(R.id.fragment_container, fragment);
                         fragmentTransaction.commit();
+
+                        User_info = new threadnelas().execute(ary).get();
+                        // Log.d("USER INFO","--"+User_info);
+
+                        //Altera Dados da View
+                        View headerView = navigationView.getHeaderView(0);
+                        TextView emailText = (TextView) headerView.findViewById(R.id.email);
+                        emailText.setText(User_info.get("email").toString());
+                        TextView usernameText = (TextView) headerView.findViewById(R.id.username);
+                        usernameText.setText(User_info.get("display_name").toString());
+
+                        JSONObject profile_image_object = (JSONObject) User_info.getJSONArray("images").get(0);
+                        profile_url = profile_image_object.getString("url");
+                        iv = (CircleImageView) findViewById(R.id.profile_image);
+                        LoadImageFromURL loadImage = new LoadImageFromURL();
+                        loadImage.execute(profile_url);
 
                     }catch(Exception e){
                         Log.d("MainActivity","Erro ========> "+e);

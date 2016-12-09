@@ -3,6 +3,7 @@ package com.compscitutorials.basigarcia.navigationdrawervideotutorial;
 /**
  * Created by Matheus on 07/10/2016.
  */
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -11,6 +12,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +25,14 @@ import android.widget.TextView;
 import jp.co.recruit_lifestyle.android.widget.PlayPauseButton;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
-
+    MediaPlayer mediaplayer;
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
     private HashMap<String, Data> hashData;
     Bitmap albumimage;
     public ImageView img;
+
 
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                        HashMap<String, List<String>> expandableListDetail) {
@@ -95,12 +99,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String listTitle = (String) getGroup(listPosition);
-        if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.
-                    getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_group, null);
-        }
+        final String listTitle = (String) getGroup(listPosition);
+            if (convertView == null) {
+                LayoutInflater layoutInflater = (LayoutInflater) this.context.
+                        getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = layoutInflater.inflate(R.layout.list_group, null);
+            }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
@@ -121,10 +125,29 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             e.printStackTrace();
         }
 
-
         final PlayPauseButton playPauseButton =
                 (PlayPauseButton) convertView.findViewById(R.id.play);
         playPauseButton.setColor(Color.WHITE);
+        playPauseButton.setOnControlStatusChangeListener(
+
+                new PlayPauseButton.OnControlStatusChangeListener() {
+                    @Override public void onStatusChange(View view, boolean status) {
+                        if (status) {
+                            mediaplayer = new MediaPlayer();
+                            mediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+                            try {
+                                mediaplayer.setDataSource(hashData.get(listTitle).getPreviewPath());
+                                mediaplayer.prepare();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            mediaplayer.start();
+                        } else {
+                            mediaplayer.pause();
+                        }
+                    }
+                });
 
         return convertView;
     }
@@ -138,4 +161,5 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
+
 }

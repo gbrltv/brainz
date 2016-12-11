@@ -12,6 +12,7 @@ public class Track {
     private String artistName;
     private String albumImage;
     private String previewUrl;
+    private String artistID;
     private int status;
     private Timestamp date;
 
@@ -78,4 +79,13 @@ public class Track {
     public void setDate(Timestamp date) {
         this.date = date;
     }
+
+    public String getArtistID() {
+        return artistID;
+    }
+
+    public void setArtistID(String artistID) {
+        this.artistID = artistID;
+    }
+
 }

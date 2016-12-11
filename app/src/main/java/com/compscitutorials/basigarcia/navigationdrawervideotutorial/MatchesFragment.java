@@ -64,6 +64,8 @@ public class MatchesFragment extends Fragment{
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 if(childPosition == 0) {            //ADD TO PLAYLIST
+                    Log.d("MatchesFragment","GroupPosition"+expandableListTitle.get(groupPosition));
+                    Log.d("MatchesFragment","ArtistID:"+db.searchArtistID(expandableListTitle.get(groupPosition)));
 
                 } else if(childPosition == 1) {     //DISCOVER ARTIST
 

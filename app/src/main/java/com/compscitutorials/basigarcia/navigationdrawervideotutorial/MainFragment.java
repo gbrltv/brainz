@@ -74,11 +74,11 @@ public class MainFragment extends Fragment {
         db = new DBHandler(rootView.getContext());
 
         ltr = db.getTracks(0);
-
+    /*
         Log.d("db.getTracks(0)", ""+db.getTracks(0).size());
         Log.d("db.getTracks(1)", ""+db.getTracks(1).size());
         Log.d("db.getTracks(2)", ""+db.getTracks(2).size());
-
+    */
         /*db.deleteRows(2);
         db.deleteRows(1);
         db.deleteRows(0);
@@ -166,7 +166,7 @@ public class MainFragment extends Fragment {
             for (int i=0 ; i < 30; i++){
                 //DEBUG
                 JSONObject track = (JSONObject) Recommendations.getJSONArray("items").get(i);
-
+                Log.d("TRACK","--"+track);
                 Track tr = new Track();
 
                 tr.setId(track.getString("id_da_musica"));
@@ -175,6 +175,7 @@ public class MainFragment extends Fragment {
                 tr.setArtistName(track.getString("nome_do_artista"));
                 tr.setAlbumImage(track.getString("imagem_do_album"));
                 tr.setPreviewUrl(track.getString("preview"));
+                tr.setArtistID(track.getString("id_do_artista"));
                 tr.setStatus(0);
 
                 db.addTrack(tr);

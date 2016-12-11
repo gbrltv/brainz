@@ -124,10 +124,7 @@ public class MainActivity extends AppCompatActivity
                     // Log.d("MainActivity", "DEBUGSONTHETABLE =========>>> " + response.getAccessToken());
                     String[] ary = new String[]{response.getAccessToken()};
                     try{
-                        // Thread GetUserInfo
-                        // auth_token_string = settings.getString("TOKEN", "");
-                        // Log.d("Main","Token--"+auth_token_string);
-                        // String[] ary = new String[]{};
+
                         MainFragment fragment = new MainFragment();
                         android.support.v4.app.FragmentTransaction fragmentTransaction =
                                 getSupportFragmentManager().beginTransaction();

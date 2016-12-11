@@ -26,6 +26,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_trackName = "trackName";
     private static final String KEY_albumName = "albumName";
     private static final String KEY_artistName = "artistName";
+    private static final String KEY_artistID = "artistID";
     private static final String KEY_albumImage = "albumImage";
     private static final String KEY_previewUrl = "previewUrl";
     private static final String KEY_status = "status";
@@ -38,7 +39,7 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_TRACKS + "("
-        + KEY_ID + " TEXT PRIMARY KEY," + KEY_trackName + " TEXT," + KEY_albumName + " TEXT,"+ KEY_artistName + " TEXT," + KEY_albumImage + " TEXT,"+ KEY_previewUrl + " TEXT," + KEY_status + " INTEGER" +")";
+        + KEY_ID + " TEXT PRIMARY KEY," + KEY_trackName + " TEXT," + KEY_albumName + " TEXT,"+ KEY_artistName + " TEXT," + KEY_albumImage + " TEXT,"+ KEY_previewUrl + " TEXT," + KEY_status + " INTEGER,"+ KEY_artistID + " TEXT" +")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -61,7 +62,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_albumImage, track.getAlbumImage());
         values.put(KEY_previewUrl, track.getPreviewUrl());
         values.put(KEY_status, track.getStatus());
-
+        values.put(KEY_artistID, track.getArtistID());
         // Inserting Row
         db.insert(TABLE_TRACKS, null, values);
         db.close(); // Closing database connection
@@ -109,6 +110,18 @@ public class DBHandler extends SQLiteOpenHelper {
         String[] whereArgs = {id};
 
         db.update(TABLE_TRACKS, values, where, whereArgs);
+    }
+
+    public String searchArtistID(String id ){
+        String selectartistID = "SELECT "+KEY_artistID+" FROM " + TABLE_TRACKS + " WHERE " + KEY_ID + " = '" + id + "';";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectartistID, null);
+        cursor.moveToFirst();
+        Log.d("DB","Cursor"+cursor.getString(0));
+
+        return cursor.getString(0);
+
     }
 
     public void deleteRows(int status) {

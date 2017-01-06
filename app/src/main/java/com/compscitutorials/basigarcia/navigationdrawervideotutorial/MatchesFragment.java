@@ -64,10 +64,29 @@ public class MatchesFragment extends Fragment{
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 if(childPosition == 0) {            //ADD TO PLAYLIST
-                    Log.d("MatchesFragment","GroupPosition"+expandableListTitle.get(groupPosition));
-                    Log.d("MatchesFragment","ArtistID:"+db.searchArtistID(expandableListTitle.get(groupPosition)));
 
                 } else if(childPosition == 1) {     //DISCOVER ARTIST
+
+                    //Log.d("MatchesFragment","GroupPosition"+expandableListTitle.get(groupPosition));
+                    //Log.d("MatchesFragment","ArtistID:"+db.searchArtistID(expandableListTitle.get(groupPosition)));
+
+                    DiscoverArtistFragment fragment = new DiscoverArtistFragment();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+                    Bundle bundle=new Bundle();
+                    //Passar Dados para Fragment...
+
+                    try {
+                        bundle.putString("token", token);
+                        bundle.putString("user_id", user_id);
+                        bundle.putString("artid",db.searchArtistID(expandableListTitle.get(groupPosition)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    fragment.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.commit();
 
                 } else if(childPosition == 2) {     //REMOVE TRACK
                     db.updateStatus(expandableListTitle.get(groupPosition), 2);

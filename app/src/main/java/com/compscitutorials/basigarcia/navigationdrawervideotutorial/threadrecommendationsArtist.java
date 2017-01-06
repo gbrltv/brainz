@@ -11,24 +11,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Matheus on 12/07/2016.
+ * Created by Matheus on 15/12/2016.
  */
-public class threadrecommendations extends AsyncTask<String, Void, JSONObject> {
+public class threadrecommendationsArtist extends AsyncTask<String, Void, JSONObject> {
     protected JSONObject doInBackground(String... params) {
-        try {
-            Log.d("Async", "doInBackground: " + params[0]);
-            return getRecommendations(params[0]);
-        } catch (Exception e) {
-            Log.d("Async", "ERRO DENTRO ASYNC" + e);
+        try{
+            Log.d("Async", "doInBackground: "+ params[0]+"---"+params[1]);
+            return getArtistRecommendations(params[0],params[1]);
+        }catch(Exception e){
+            Log.d("Async","ERRO DENTRO ASYNC"+ e);
         }
         return null;
     }
 
-    // HTTP GET request
-    public JSONObject getRecommendations(String accessToken) throws Exception {
-        Log.d("AsyncThread", "Recommendations");
-        Log.d("TopArtists", "Token" + accessToken);
-        String url = "http://papayastudio.com.br/discovery/getRecommendations.php?token=" + accessToken;
+    public JSONObject getArtistRecommendations(String accessToken, String artID) throws Exception {
+        Log.d("AsyncThread", "Artist Recommendations");
+
+        String url = "http://papayastudio.com.br/discovery/getRecommendationsArtist.php?token="+accessToken+"&artist="+artID;
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         // optional default is GET
@@ -36,8 +35,8 @@ public class threadrecommendations extends AsyncTask<String, Void, JSONObject> {
         //add request header
         // con.setRequestProperty("token",accessToken);
         int responseCode = con.getResponseCode();
-        Log.d("TopArtists", "\nSending 'GET' request to URL : " + url);
-        Log.d("TopArtists", "Response Code : " + responseCode);
+        //Log.d("TopArtists","\nSending 'GET' request to URL : " + url);
+        //Log.d("TopArtists","Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -48,11 +47,9 @@ public class threadrecommendations extends AsyncTask<String, Void, JSONObject> {
             response.append(inputLine);
         }
         in.close();
-        Log.d("JsonRec", "-" + response.toString());
+        Log.d("JsonRecArtist","-"+response.toString());
         JSONObject jsonObj = new JSONObject(response.toString());
 
         return jsonObj;
     }
 }
-
-

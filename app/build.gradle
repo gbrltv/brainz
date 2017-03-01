@@ -53,5 +53,6 @@ dependencies {
     compile 'com.github.recruit-lifestyle:PlayPauseButton:1.0'
 
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
+    compile 'id.arieridwan:pageloader:0.0.2'
 
 }

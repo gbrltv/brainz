@@ -112,7 +112,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.update(TABLE_TRACKS, values, where, whereArgs);
     }
 
-    public String searchArtistID(String id ){
+    public String searchArtistID(String id){
         String selectartistID = "SELECT "+KEY_artistID+" FROM " + TABLE_TRACKS + " WHERE " + KEY_ID + " = '" + id + "';";
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -129,6 +129,17 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TABLE_TRACKS, KEY_status + "=" + status, null);
+    }
+
+    public boolean trackCheck(String id){
+        String selectrack = "SELECT COUNT(1) FROM " + TABLE_TRACKS + " WHERE " + KEY_ID + " = '" + id + "';";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectrack, null);
+        cursor.moveToFirst();
+        if(cursor.getString(0) == "1")
+            return true;
+        return false;
     }
 
 }

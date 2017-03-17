@@ -71,14 +71,15 @@ public class DiscoverArtistFragment extends Fragment{
 
             db = new DBHandler(rootView.getContext());
 
-            ltr = db.getTracks(0);
+            //ltr = db.getTracks(0);
 
             al = new ArrayList<>();
             callRecommendations(token,artistID);
-          /*  for (Track l : ltr){
+            /*
+            for (Track l : ltr){
                 al.add(new Data(l.getAlbumImage(),l.getTrackName(),l.getArtistName(), l.getPreviewUrl(),l.getId()));
             }
-               */
+            */
 
             myAppAdapter = new MyAppAdapter(al, rootView.getContext());
             flingContainer.setAdapter(myAppAdapter);
@@ -106,7 +107,25 @@ public class DiscoverArtistFragment extends Fragment{
 
                 @Override
                 public void onRightCardExit(Object dataObject) {
-                   // db.updateStatus(al.get(0).getId(), 1);
+                    //db.updateStatus(al.get(0).getId(), 1);
+                    //ADICIONAR NO BANCO
+                    if(db.trackCheck(al.get(0).getId())){
+                        db.updateStatus(al.get(0).getId(), 1);
+                    } else {
+                        Track track = new Track();
+                        track.setId(al.get(0).getId());
+                        track.setTrackName(al.get(0).getTrackName());
+                        track.setAlbumName(al.get(0).getAlbumName());
+                        track.setArtistName(al.get(0).getArtistName());
+                        track.setAlbumImage(al.get(0).getAlbumImage());
+                        track.setPreviewUrl(al.get(0).getPreviewUrl());
+                        track.setStatus(1);
+                        track.setArtistID(al.get(0).getArtistID());
+
+                        db.addTrack(track);
+                    }
+                    //Log.d("ididid",al.get(0).getId());
+
                     al.remove(0);
                     mediaplayer.stop();
                     //mediaplayer.release();
@@ -119,6 +138,8 @@ public class DiscoverArtistFragment extends Fragment{
 
                 @Override
                 public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                    callRecommendations(token,artistID);
+                    /*
                     Log.d("itemsInAdapter", "" + itemsInAdapter);
                     callRecommendations(token,artistID);
                     //viewHolder.notify();
@@ -129,6 +150,7 @@ public class DiscoverArtistFragment extends Fragment{
                     }
                     Collections.shuffle(al);
                     myAppAdapter.notifyDataSetChanged();
+                    */
                 }
 
                 @Override
@@ -154,7 +176,7 @@ public class DiscoverArtistFragment extends Fragment{
                 for (int i=0 ; i < 30; i++){
                     //DEBUG
                     JSONObject track = (JSONObject) Recommendations.getJSONArray("items").get(i);
-                    Log.d("TRACK","--"+track);
+                    //Log.d("TRACK","--"+track);
                     Track tr = new Track();
 
                     tr.setId(track.getString("id_da_musica"));
@@ -168,7 +190,7 @@ public class DiscoverArtistFragment extends Fragment{
 
                     al.add(tr);
                 }
-
+                Collections.shuffle(al);
             } catch(Exception e){
                 e.printStackTrace();
             }
